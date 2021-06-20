@@ -1,0 +1,35 @@
+.login-container {
+    width: 30%;
+    margin: 0 auto;
+}
+
+.login-btn {
+    border-radius: 5px;
+    padding: 5px 20px;
+    border: 1px solid gray;
+    background-color: white;
+    margin-bottom: 10px;
+}
+
+.login-btn:hover {
+    background-color: lightgrey;
+}
+
+.login-btn img {
+    margin-right: 50px;
+}
+
+.custom-btn {
+    padding: 5px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #275A53;
+    color: white;
+}
+
+@media only screen and (max-width: 1000px) {
+    .login-container {
+        width: 80%;
+        margin: 0 auto;
+    }
+}
