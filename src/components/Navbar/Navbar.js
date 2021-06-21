@@ -42,11 +42,15 @@ const Navbar = () => {
                     <ul className="navbar-nav ml-auto">
 
                         <li className="nav-item active" style={{ display: isEmployer ? '' : 'none' }}>
-                            <a className="nav-link" href="/employerDashboard">Employer Dashboard</a>
+                            <a className="nav-link" href="/employerDashboard">
+                                <span className="p-2 font-weight-bold bg-warning">Employer Dashboard</span>
+                            </a>
                         </li>
 
                         <li className="nav-item active" style={{ display: isAdmin ? '' : 'none' }}>
-                            <a className="nav-link" href="/adminDashboard">Admin Dashboard</a>
+                            <a className="nav-link" href="/adminDashboard">
+                                <span className="p-2 font-weight-bold bg-warning">Admin Dashboard</span>
+                            </a>
                         </li>
 
                         <li className="nav-item active">
