@@ -14,8 +14,6 @@ const Login = () => {
     const history = useHistory();
     const location = useLocation();
 
-
-    const [isNewUser, setIsNewUser] = useState(true);
     const [user, setUser] = useState({});
     const [errorMessage, setErrorMessage] = useState('');
 
@@ -29,15 +27,10 @@ const Login = () => {
 
     const successLogin = (name, email) => {
         localStorage.setItem('userName', name);
-        // localStorage.setItem('isAdmin', isAdmin);
+        localStorage.setItem('email', email);
         history.replace(from);
         history.go(0);
     }
-
-    const errorLogin = (message) => {
-        setErrorMessage(message);
-    }
-
 
     const handleCreateAccount = (event) => {
         if (user.email && user.password && user.password === user.confirmPassword) {
@@ -74,34 +67,21 @@ const Login = () => {
             });
     }
 
-    const handleLogin = (event) => {
-        firebase.auth().signInWithEmailAndPassword(user.email, user.password)
-            .then(res => {
-                const newUserInfo = { ...user };
-                newUserInfo.displayName = res.user.displayName;
-                setUser(newUserInfo);
-                // setSignedInUser(newUserInfo);
-                successLogin(newUserInfo.displayName, newUserInfo.email);
-            })
-            .catch(function (error) {
-                setErrorMessage(error.message);
-            });
-        event.preventDefault();
-    }
+    
 
     return (
         <div className="login-container text-center mt-5">
             <div>
-                {isNewUser ? <h1>Create an account</h1> : <h1>Login</h1>}
+                <h1>Create an account</h1>
                 <br />
                 <form>
-                    {isNewUser && <div className="form-group">
+                    <div className="form-group">
                         <input onBlur={handleBlur} name="firstName" type="text" className="form-control" placeholder="First Name" required />
-                    </div>}
+                    </div>
 
-                    {isNewUser && <div className="form-group">
+                    <div className="form-group">
                         <input onBlur={handleBlur} name="lastName" type="text" className="form-control" placeholder="Last Name" required />
-                    </div>}
+                    </div>
 
                     <div className="form-group">
                         <input onBlur={handleBlur} name="email" type="email" className="form-control" placeholder="Email" required />
@@ -111,12 +91,12 @@ const Login = () => {
                         <input onBlur={handleBlur} name="password" type="password" className="form-control" placeholder="Password" required />
                     </div>
 
-                    {isNewUser && <div className="form-group">
+                    <div className="form-group">
                         <input onBlur={handleBlur} name="confirmPassword" type="password" className="form-control" placeholder="Confirm Password" required />
-                    </div>}
+                    </div>
 
-                    {isNewUser ? <button onClick={handleCreateAccount} type="submit" style={{ width: '100%' }} className="custom-btn">Sign Up</button>
-                        : <button onClick={handleLogin} type="submit" style={{ width: '100%' }} className="custom-btn">Login</button>}
+                    <button onClick={handleCreateAccount} type="submit" style={{ width: '100%' }} className="custom-btn">Sign Up</button>
+
                 </form>
                 <br />
                 

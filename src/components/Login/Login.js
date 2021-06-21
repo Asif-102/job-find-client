@@ -27,48 +27,10 @@ const Login = () => {
 
     const successLogin = (name, email) => {
         localStorage.setItem('userName', name);
+        localStorage.setItem('email', email);
         // localStorage.setItem('isAdmin', isAdmin);
         history.replace(from);
         history.go(0);
-    }
-
-    const errorLogin = (message) => {
-        setErrorMessage(message);
-    }
-
-    const handleCreateAccount = (event) => {
-        if (user.email && user.password && user.password === user.confirmPassword) {
-            firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
-                .then(res => {
-                    // setSignedInUser(user);
-                    const name = user.firstName + ' ' + user.lastName;
-                    const newUser = { ...user };
-                    newUser.displayName = name;
-                    // setSignedInUser(newUser);
-                    updateUserProfile(name);
-                })
-                .catch(function (error) {
-                    const errorMessage = error.message;
-                    setErrorMessage(errorMessage);
-                });
-        }
-        else {
-            setErrorMessage("Password & Confirm Password don't match")
-        }
-        event.preventDefault();
-    }
-
-    const updateUserProfile = (name) => {
-        const newUser = firebase.auth().currentUser;
-        newUser.updateProfile({
-            displayName: name,
-        })
-            .then(function () {
-                successLogin(name, newUser.email);
-            })
-            .catch(function (error) {
-                console.log(error)
-            });
     }
 
     const handleLogin = (event) => {

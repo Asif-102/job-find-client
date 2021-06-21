@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 const AccountType = () => {
 
@@ -15,12 +15,12 @@ const AccountType = () => {
             <br />
             <button
             onClick={()=>handleClick('employer')} 
-            type="button" class="btn btn-primary">Employer</button>
+            type="button" class="btn btn-primary">Employer account</button>
             <br />
             <hr />
             <button 
             onClick={()=>handleClick('jobSeeker')}
-            type="button" class="btn btn-info">Job Seeker</button>
+            type="button" class="btn btn-info">Job Seeker account</button>
         </div>
     );
 };

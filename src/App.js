@@ -4,13 +4,16 @@ import {
   Switch,
   Route
 } from "react-router-dom";
-// import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./components/Home/Home";
 import Login from "./components/Login/Login";
 import AccountType from "./components/Login/AccountType";
 import JobSeekerLogin from "./components/Login/JobSeekerLogin";
 import EmployerLogin from "./components/Login/EmployerLogin";
+import EmployerDashboard from "./components/EmployerDashboard/EmployerDashboard";
+import AdminDashboard from "./components/AdminDashboard/AdminDashboard";
+import SuccessApply from "./components/SuccessApply/SuccessApply";
 import NotFound from "./components/NotFound/NotFound";
 
 
@@ -20,9 +23,9 @@ function App() {
       <Router>
         <Navbar />
         <Switch>
-          <Route exact path="/">
+          <PrivateRoute exact path="/">
             <Home />
-          </Route>
+          </PrivateRoute>
           <Route path="/login">
             <Login />
           </Route>
@@ -35,6 +38,15 @@ function App() {
           <Route path="/employer">
             <EmployerLogin />
           </Route>
+          <PrivateRoute path="/employerDashboard">
+            <EmployerDashboard />
+          </PrivateRoute>
+          <PrivateRoute path="/adminDashboard">
+            <AdminDashboard />
+          </PrivateRoute>
+          <PrivateRoute path="/applySuccess">
+            <SuccessApply />
+          </PrivateRoute>
           <Route path="*">
             <NotFound />
           </Route>

@@ -31,6 +31,7 @@ const EmployerLogin = () => {
 
     const successLogin = (name, email) => {
         localStorage.setItem('userName', name);
+        localStorage.setItem('email', email);
         // localStorage.setItem('isAdmin', isAdmin);
         history.replace(from);
         history.go(0);
@@ -66,7 +67,7 @@ const EmployerLogin = () => {
             paymentId:paymentId
         }
 
-        fetch('http://localhost:4000/addEmployer', {
+        fetch('https://mighty-coast-51208.herokuapp.com/addEmployer', {
                 method: 'POST',
                 body: JSON.stringify(data),
                 headers: {

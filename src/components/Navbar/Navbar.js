@@ -1,17 +1,35 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from "react-router-dom";
 
 const Navbar = () => {
 
     const user = localStorage.getItem("userName");
-    // console.log(user);
+    const email = localStorage.getItem("email");
+
+    const [isEmployer, setIsEmployer] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     const history = useHistory();
 
     const logOut = () => {
         localStorage.clear();
+        history.push('/');
         history.go(0);
     }
+
+    useEffect(() => {
+        fetch(`https://mighty-coast-51208.herokuapp.com/findEmployer?email=${email}`)
+            .then(res => res.json())
+            .then(data => {
+                setIsEmployer(data.length)
+                localStorage.setItem('accountCategory', data[0]?.category)
+            })
+
+        fetch(`https://mighty-coast-51208.herokuapp.com/findAdmin?email=${email}`)
+            .then(res => res.json())
+            .then(data => setIsAdmin(data.length))
+
+    }, [email])
 
     return (
         <div>
@@ -22,8 +40,17 @@ const Navbar = () => {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav ml-auto">
+
+                        <li className="nav-item active" style={{ display: isEmployer ? '' : 'none' }}>
+                            <a className="nav-link" href="/employerDashboard">Employer Dashboard</a>
+                        </li>
+
+                        <li className="nav-item active" style={{ display: isAdmin ? '' : 'none' }}>
+                            <a className="nav-link" href="/adminDashboard">Admin Dashboard</a>
+                        </li>
+
                         <li className="nav-item active">
-                            <a className="nav-link" href="/">Home <span className="sr-only">{user?`${user}`:''}</span></a>
+                            <a className="nav-link" href="#"><span className="sr-only">{user ? `${user}` : ''}</span></a>
                         </li>
                         <li className="nav-item active ml-5 mr-5">
                             {!user && <a className="nav-link" href="/login">Login</a>}
