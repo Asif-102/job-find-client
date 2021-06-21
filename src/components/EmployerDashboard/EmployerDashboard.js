@@ -3,6 +3,10 @@ import { useForm } from "react-hook-form";
 
 const EmployerDashboard = () => {
 
+    const category = localStorage.getItem("accountCategory");
+    const userName = localStorage.getItem("userName");
+    const email = localStorage.getItem("email");
+
     const [previousPost, setPreviousPost] = useState([]);
     const [postedHourCount, setPostedHourCount] = useState(0);
 
@@ -11,13 +15,18 @@ const EmployerDashboard = () => {
     const [updateData, setUpdateData] = useState(0);
 
     useEffect(() => {
-        fetch('https://mighty-coast-51208.herokuapp.com/postedJob')
+        fetch(`https://mighty-coast-51208.herokuapp.com/findEmployerPost?email=${email}`)
             .then(res => res.json())
             .then(data => {
                 setPreviousPost(data)
                 postedHour(data)
             })
-    }, [updateData])
+    }, [email, updateData])
+
+    
+
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+
 
     const postedHour = (all) => {
         let count = 0;
@@ -27,12 +36,6 @@ const EmployerDashboard = () => {
         }
         setPostedHourCount(count);
     }
-
-    const { register, handleSubmit, reset, formState: { errors } } = useForm();
-
-    const category = localStorage.getItem("accountCategory");
-    const userName = localStorage.getItem("userName");
-    const email = localStorage.getItem("email");
 
     let hourLimit = 0;
 

@@ -11,20 +11,39 @@ const SecondPage = ({setPageVisibility, jobs}) => {
         .then(data => setAllData(data))
     },[])
 
-    console.log(allData);
-
     for(let i= 0; i<allData.length; i++){
         let item = allData[i];
-        let found = jobs.filter(get => get._id == item.id)
-        console.log(found);
+        let find = jobs.find(job => job._id == item._id);
+        if(find === undefined){
+            newArray.push(item)
+        }
+        
     }
 
     return (
-        <div>
-            <h1>This is page 2</h1>
-            <button
+        <div className="container">
+            <div className="row">
+                {
+                    newArray?.map(job =>
+                        <div className="col-md-4 col-12 mb-3 mt-2">
+                            <div className="card" style={{ width: '22rem' }}>
+                                <div className="card-body">
+                                    <h5 className="card-title">Job Name: {job.jobName}</h5>
+                                    <h6 className="card-subtitle mb-2 text-muted">Company Name: {job.companyName}</h6>
+                                    <p className="card-text">Job Hour: {job.jobHour}</p>
+                                    <a href="/applySuccess" className="card-link">Apply Job</a>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                }
+                {
+                    newArray.length === 0 && <h3 className="text-center">Jobs Not Found :(</h3>
+                }
+            </div>
+            <button className="mt-2 mb-3 btn btn-secondary btn-sm"
             onClick={()=>setPageVisibility(true)}
-             type="button" class="btn btn-secondary btn-sm">Go to page 1</button>
+             type="button">Go to page 1</button>
         </div>
     );
 };

@@ -12,8 +12,8 @@ const Home = () => {
         fetch('https://mighty-coast-51208.herokuapp.com/publishedJobs?search=' + findJobs)
             .then(res => res.json())
             .then(data => {
-                if(data.length > 6){
-                    const newData = data.splice(0,6)
+                if(data.length > 20){
+                    const newData = data.splice(0,20)
                     setJobs(newData)
                 }else{
                     setJobs(data)
